@@ -1,16 +1,16 @@
 window.onload = function() {
 
-  var messages = [];
-  var socket = io.connect('/');
-  var field = document.getElementById('field');
-  var sendButton = document.getElementById('send');
-  var content = document.getElementById('content');
-  var pushButton = document.getElementById('push-button');
-  var pageUrl = document.getElementById('page-url');
-  var body = document.getElementsByTagName("body")[0];
-  var start, end;
-  var queue = [];
-  var spaceDown = false;
+  const messages = [];
+  const socket = io.connect('/');
+  const field = document.getElementById('field');
+  const sendButton = document.getElementById('send');
+  const content = document.getElementById('content');
+  const pushButton = document.getElementById('push-button');
+  const pageUrl = document.getElementById('page-url');
+  const body = document.getElementsByTagName("body")[0];
+  let start, end;
+  const queue = [];
+  let spaceDown = false;
 
   var dot = 100,
       dash = 300;
