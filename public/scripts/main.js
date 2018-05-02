@@ -1,71 +1,73 @@
 window.onload = function() {
 
-    const messages = [];
-    const socket = io.connect('/');
-    const field = document.getElementById('field');
-    const sendButton = document.getElementById('send');
-    const content = document.getElementById('content');
-    const pushButton = document.getElementById('push-button');
-    const pageUrl = document.getElementById('page-url');
-    const body = document.getElementsByTagName("body")[0];
-    let start, end;
-    const queue = [];
-    let spaceDown = false;
+    const messages = []
+    const socket = io.connect('/')
+    const field = document.getElementById('field')
+    const sendButton = document.getElementById('send')
+    const content = document.getElementById('content')
+    const pushButton = document.getElementById('push_button')
+    const pageUrl = document.getElementById('page_url')
+    const body = document.getElementsByTagName("body")[0]
+    let start, end
+    const queue = []
+    let spaceDown = false
 
     let dot = 100,
-        dash = 300;
+        dash = 300
 
     // create the sending audio beep tone
-    const waveLow = new RIFFWAVE();
-    let data = [];
-    waveLow.header.sampleRate = 22100;
-    waveLow.header.numChannels = 2;
-    let i = 0;
+    const waveLow = new RIFFWAVE()
+    let data = []
+    waveLow.header.sampleRate = 22100
+    waveLow.header.numChannels = 2
+    let i = 0
     while (i<1000000)
     {
         data[i++] = 128+Math.round(127*Math.sin(i/10))
     }
-    waveLow.Make(data);
-    const audio = new Audio();
-    audio.src = waveLow.dataURI;
+    waveLow.Make(data)
+    const audio = new Audio()
+    audio.src = waveLow.dataURI
     console.log('%O', audio)
 
     // create the receiving audio beep tone
-    const waveHigh = new RIFFWAVE();
-    data = [];
-    waveHigh.header.sampleRate = 32100;
-    waveHigh.header.numChannels = 2;
-    i = 0;
+    const waveHigh = new RIFFWAVE()
+    data = []
+    waveHigh.header.sampleRate = 32100
+    waveHigh.header.numChannels = 2
+    i = 0
     while (i<1000000)
-        data[i++] = 128+Math.round(127*Math.sin(i/10));
-    waveHigh.Make(data);
-    const audio2 = new Audio();
-    audio2.src = waveHigh.dataURI;
+    {
+        data[i++] = 128+Math.round(127*Math.sin(i/10))
+    }
+    waveHigh.Make(data)
+    const audio2 = new Audio()
+    audio2.src = waveHigh.dataURI
 
-    let roomId;
+    let roomId
     if (window.location.hash)
     {
-        roomId = window.location.hash.substring(1);
+        roomId = window.location.hash.substring(1)
     }
     else
     {
-        roomId = makeid(5);
-        window.location.hash = '#' + roomId;
+        roomId = makeid(5)
+        window.location.hash = '#' + roomId
     }
-    pageUrl.innerHTML = window.location.href;
+    pageUrl.innerHTML = window.location.href
 
-    socket.emit('room', roomId);
+    socket.emit('room', roomId)
 
     socket.on('message', function(data)
     {
         if (data.message)
         {
-            messages.push(data.message);
-            let html = '';
+            messages.push(data.message)
+            let html = ''
             for(let i=0; i<messages.length; i++) {
-                html += messages[i] + '<br />';
+                html += messages[i] + '<br />'
             }
-            content.innerHTML = html;
+            content.innerHTML = html
 
             // play the message
             for (let i = 0, len = data.message.length; i < len; i++)

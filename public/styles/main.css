@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background: url('/images/ricepaper_v3.png') repeat;
+  background: url('../images/ricepaper_v3.png') repeat;
   font-size: 14px;
   color: #362730;
   font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
@@ -25,7 +25,7 @@ header, footer {
 }
 
 #frame {
-  background: url(/images/frame.png) no-repeat;
+  background: url(../images/frame.png) no-repeat;
   width: 592px;
   height: 293px;
   padding-top: 135px;
@@ -33,7 +33,7 @@ header, footer {
 }
 
 .key {
-  background: url('/images/morsenode-sprite.png') no-repeat;
+  background: url('../images/morsenode-sprite.png') no-repeat;
   margin: 0 auto;
 }
 
