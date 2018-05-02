@@ -1,20 +1,18 @@
 window.onload = function() {
 
-    const messages = []
     const field = document.getElementById('field')
-    field.value = 'bynbyn'
+    field.value = '昔我往矣,杨柳依依'
     const sendButton = document.getElementById('send')
     const content = document.getElementById('content')
     const pushButton = document.getElementById('push_button')
-    const pageUrl = document.getElementById('page_url')
     const body = document.body
-    let start, end
     const queue = []
-    const soundQueue = []
     let spaceDown = false
 
-    let dot = 100,
-        dash = 300
+    const dot = 100
+    const dash = 300
+    const betweenDotAndDash = 100
+    const betweenWord = 300
 
     // create the sending audio beep tone
     const waveLow = new RIFFWAVE()
@@ -33,7 +31,7 @@ window.onload = function() {
     // create the receiving audio beep tone
     const waveHigh = new RIFFWAVE()
     data = []
-    waveHigh.header.sampleRate = 32100
+    waveHigh.header.sampleRate = 22100
     waveHigh.header.numChannels = 2
     i = 0
     while (i<1000000)
@@ -44,31 +42,29 @@ window.onload = function() {
     const audio2 = new Audio()
     audio2.src = waveHigh.dataURI
 
-    pageUrl.innerHTML = window.location.href
-
-    const playEncoded = function(encoded)
+    const playText = function(text)
     {
+        const encoded = xmorse.encode(text)
+        console.log(`${text}: ${encoded}`)
         content.innerHTML = encoded
-        console.log(encoded)
 
         // play the message
         const arr = encoded.split('')
-        console.log(arr)
         for (let i = 0; i < arr.length; i++)
         {
             let char = arr[i]
             switch (char)
             {
                 case '.':
-                    queue.push({len: dot})
-                    queue.push({len: dot, type: 'space'})
+                    queue.push({len: dot, type: 'dot'})
+                    queue.push({len: betweenDotAndDash, type: 'space'})
                     break
                 case '-':
-                    queue.push({len: dash})
-                    queue.push({len: dot, type: 'space'})
+                    queue.push({len: dash, type: 'dash'})
+                    queue.push({len: betweenDotAndDash, type: 'space'})
                     break
                 case '/':
-                    queue.push({len: 300, type: 'space'})
+                    queue.push({len: betweenWord, type: 'space'})
                     break
             }
         }
@@ -97,19 +93,19 @@ window.onload = function() {
                 {
                     playAudio(audio2, item.len)
                 }
-                checkQueue(time)
+                checkQueue(item.len)
             }
         }, time)
     }
 
     sendButton.onclick = function()
     {
-        const text = field.value
+        const text = field.value.replace(' ', '')
         field.value = ''
         if (!!text)
         {
-            const encoded = morse.encode(text)
-            playEncoded(encoded)
+            location.hash = text
+            playText(text)
         }
     }
 
@@ -117,16 +113,12 @@ window.onload = function() {
     {
         audio.play()
         pushButton.className = 'key key-down'
-        start = +new Date()
     }
 
     const mouseup = function()
     {
         audio.pause()
         pushButton.className = 'key key-up'
-        end = +new Date()
-        const diff = end - start
-        soundQueue.push({ len: diff })
     }
 
     pushButton.onmousedown = mousedown
@@ -153,4 +145,6 @@ window.onload = function() {
             mouseup()
         }
     }
+
+    playText(decodeURI(location.hash.substring(1)))
 }
