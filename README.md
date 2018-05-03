@@ -1,14 +1,3 @@
-Finally, we have the technology to rebuild the technology from hundreds of years ago!
+# morse
 
-Written in node.js (of course), Morse Node lets you communicate with friends, enemies, and frenemies all over the world!
-
-GETTING STARTED
-===============
-
-- clone this repo
-- `npm install`
-- `node app.js`
-
-Pull requests encouraged and appreciated.
-
-MIT License
+hash of the current url is automatically played !

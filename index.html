@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Morse</title>
+
+    <style>
+        body
+        {
+            margin: 0;
+            padding: 20px;
+            background: url('images/ricepaper_v3.png') repeat;
+            font-size: 14px;
+            color: #362730;
+            font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+        }
+
+        .container
+        {
+            max-width: 800px;
+            min-width: 465px;
+            margin: 25px auto;
+            text-align: center;
+        }
+
+        #frame
+        {
+            background: url(images/frame.png) no-repeat;
+            width: 592px;
+            height: 293px;
+            padding-top: 135px;
+            margin: 20px auto;
+        }
+
+        .key
+        {
+            background: url('images/morsenode-sprite.png') no-repeat;
+            margin: 0 auto;
+        }
+
+        .key-up
+        {
+            background-position: 0 0;
+            width: 465px;
+            height: 265px;
+        }
+
+        .key-down
+        {
+            background-position: 0 -265px;
+            width: 465px;
+            height: 265px;
+        }
+
+        #content
+        {
+            text-align: left;
+            font-size: 18px;
+        }
+
+        button
+        {
+            background: #A32F4B;
+            border: 0;
+            color: white;
+            padding: 7px 10px;
+        }
+
+        input[type=text]
+        {
+            width: 200px;
+            background: none;
+            height: 20px;
+            border: 2px solid #A32E4B;
+            padding: 2px 5px;
+        }
+    </style>
+
+    <script src="scripts/xmorse.js"></script>
+    <script src="scripts/riffwave.js"></script>
+    <script src="scripts/index.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <div id="frame">
+        <div id="push_button" class="key key-up"></div>
+    </div>
+    <form onsubmit="return false;">
+        <input type="text" id="field" placeholder="say something...">
+        <button type="submit" id="send">Start</button>
+    </form>
+    <br>
+    <div id="content"></div>
+</div>
+
+
+</body>
+</html>
